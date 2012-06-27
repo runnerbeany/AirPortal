@@ -6,6 +6,10 @@
 # netbeans
 /nbproject
 
+#IntelliJ
+/.idea
+.iml
+
 # various other potential build files
 /bin
 /dist
