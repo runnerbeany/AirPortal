@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="MacRoman" standalone="no"?>
+<jardesc>
+    <jar path="Vortex/Build/Vortex.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/Vortex/Export.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=Vortex/src&lt;resources"/>
+        <javaElement handleIdentifier="=Vortex/src&lt;me.sorroko.vortex.commands"/>
+        <javaElement handleIdentifier="=Vortex/src&lt;me.sorroko.vortex"/>
+        <javaElement handleIdentifier="=Vortex/src&lt;me.sorroko.vortex.listeners"/>
+        <file path="/Vortex/src/plugin.yml"/>
+    </selectedElements>
+</jardesc>

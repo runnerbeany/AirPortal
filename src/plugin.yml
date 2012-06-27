@@ -1,0 +1,10 @@
+name: AirPortal
+author: Sorroko
+main: me.sorroko.vortex.AirPortal
+version: 0.0.1
+description: Teleport in style with an airportal.
+commands:
+  airportal:
+    usage: /airportal
+    description: Base command
+    aliases: [portal, ap]

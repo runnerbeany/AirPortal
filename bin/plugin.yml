@@ -1,0 +1,9 @@
+name: Vortex
+author: Sorroko
+main: me.sorroko.vortex.Vortex
+version: 0.0.1
+description: Teleport in style with a vortex.
+commands:
+  vortex:
+    usage: /vortex
+    description: Base command

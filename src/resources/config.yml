@@ -1,0 +1,7 @@
+#AirPortal Config - Developed by Sorroko a.k.a. ryan7745
+#Version do not modify!
+version: 0.0.1
+
+#delay for launch
+launchDelay: 1
+
