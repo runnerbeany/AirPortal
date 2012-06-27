@@ -8,3 +8,13 @@ commands:
     usage: /airportal
     description: Base command
     aliases: [portal, ap]
+permissions:
+    airportal.*:
+        description: Allows you to use everything
+        default: op
+    airportal.use:
+        description: Allows you to use portals
+        default: true
+    airportal.admin:
+        description: Allows you to use all the commands
+        default: op

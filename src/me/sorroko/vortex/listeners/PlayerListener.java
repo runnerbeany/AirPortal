@@ -53,6 +53,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event){
 		final Player player = event.getPlayer();
+		if(!plugin.hasPermission(player, "use")) return;
 		Location to = event.getTo();
 		Location from = event.getFrom();
 		if(to.getBlockX() != from.getBlockX() 

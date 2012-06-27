@@ -8,7 +8,7 @@
 
 #IntelliJ
 /.idea
-.iml
+/*.iml
 
 # various other potential build files
 /bin

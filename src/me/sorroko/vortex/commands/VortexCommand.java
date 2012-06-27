@@ -29,7 +29,7 @@ public class VortexCommand implements CommandExecutor {
 			}
 			
 			Player player = (Player) sender;
-			if(!plugin.hasPermission(player, "airportal")){
+			if(!plugin.hasPermission(player, "admin")){
 				Util.sendMessageNoPerms(sender);
 				return true;
 			}
