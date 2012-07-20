@@ -5,16 +5,16 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 
-public class vortex {
+public class Vortex {
 public Location location;
 public String height;
 public String destination;
-public vortex(Location loc,String portalheight,String destinationname){
+public Vortex(Location loc,String portalheight,String destinationname){
 	location=loc;
 	height=portalheight;
 	destination=destinationname;
 }
-public vortex(ConfigurationSection csec){
+public Vortex(ConfigurationSection csec){
 	height=csec.getString("height");
 	destination=csec.getString("teleport");
 	String[] l = csec.getString("loc").split(":");

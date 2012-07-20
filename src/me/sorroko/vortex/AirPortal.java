@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -19,7 +20,7 @@ public class AirPortal extends JavaPlugin {
 	
 	private final ConfigUtil configUtil;
 	private final Util util;
-	
+	public VortexManager VortexManager=new VortexManager(this);
 	public HashMap<Player, Integer> vortex_waiting = new HashMap<Player, Integer>();
 	public HashMap<Player, Boolean> vortex_players = new HashMap<Player, Boolean>();
 	
@@ -33,7 +34,11 @@ public class AirPortal extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Util.log(Util.pdfFile.getName() + " has been disabled");
-		
+		try{
+		mainConf.save("config");
+		}catch(IOException e){
+			Util.log("[" + Util.pdfFile.getName() + "]" + "Error saving config.");
+		}
 	}
 	
 	@Override

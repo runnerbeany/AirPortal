@@ -29,25 +29,8 @@ public class PlayerListener implements Listener {
 		plugin = instance;
 	}
 	
-	HashMap<String, Location> vortexs = new HashMap<String, Location>();
-	
 	public void updateVortexs(){
-		ConfigurationSection cSelection = plugin.mainConf.getConfigurationSection("vortex_locs");
-		if(cSelection == null) return;
-		Set<String> vortex_list = cSelection.getKeys(false);
-		if(vortex_list == null) return;
-		for(String s: vortex_list){
-			
-			String[] l = plugin.mainConf.getString("vortex_locs." + s + ".loc").split(":");
-			if(l.length == 4){
-				World w = Bukkit.getWorld(l[0]);
-				if(w == null) return;
-				int x = Integer.parseInt(l[1]);
-				int y = Integer.parseInt(l[2]);
-				int z = Integer.parseInt(l[3]);
-				vortexs.put(s, new Location(w, x, y, z));
-			}
-		}
+	plugin.VortexManager.loadVortexii();
 	}
 	
 	@EventHandler
@@ -65,16 +48,16 @@ public class PlayerListener implements Listener {
 					&& plugin.vortex_players.containsKey(player)){
 				plugin.vortex_players.remove(player);
 			}
-			for(Entry<String, Location> entry: vortexs.entrySet()){
+			for(Entry<String, me.sorroko.vortex.Vortex> entry: plugin.VortexManager.getVortexEntries()){
 				String name = entry.getKey();
-				Location loc = entry.getValue();
+				Location loc = entry.getValue().location;
 				if(to.getWorld() == loc.getWorld()
 						&& (loc.getBlockX() - 2) <= to.getBlockX() && to.getBlockX() <= (loc.getBlockX() + 2)
 						&& (loc.getBlockZ() - 2) <= to.getBlockZ() && to.getBlockZ() <= (loc.getBlockZ() + 2)
 						&& (loc.getBlockY() - 1) <= to.getBlockY() && to.getBlockY() <= (loc.getBlockY() + 1)
 						&& from.getBlockY() == to.getBlockY()){
 
-					final String teleport = plugin.mainConf.getString("vortex_locs." + name + ".teleport");
+					final String teleport = plugin.VortexManager.getVortex(name).destination;
 					
 
 					//cancel if the player is waiting and is still in a vortex
@@ -82,7 +65,7 @@ public class PlayerListener implements Listener {
 						return;
 
 					final int multiplier;
-					String height = plugin.mainConf.getString("vortex_locs." + name + ".height");
+					String height = plugin.VortexManager.getVortex(name).height;
 					if(height != null){
 						if(height.equalsIgnoreCase("low")){
 							multiplier = 2;
@@ -105,8 +88,8 @@ public class PlayerListener implements Listener {
 							plugin.vortex_waiting.remove(player);
 							plugin.vortex_players.put(player, true);
 							if(teleport != null){
-								if(!vortexs.containsKey(teleport)) return;
-								final Location tl = vortexs.get(teleport).clone();
+								if(!plugin.VortexManager.vortexExists(teleport)) return;
+								final Location tl = plugin.VortexManager.getVortex(teleport).location.clone();
 								Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
 
 									@Override

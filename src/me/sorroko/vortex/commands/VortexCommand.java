@@ -4,6 +4,7 @@ package me.sorroko.vortex.commands;
 import me.sorroko.vortex.AirPortal;
 import me.sorroko.vortex.ConfigUtil;
 import me.sorroko.vortex.Util;
+import me.sorroko.vortex.Vortex;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -44,51 +45,29 @@ public class VortexCommand implements CommandExecutor {
 			}
 			
 			if(args.length > 0){
+				
 				if(args[0].equalsIgnoreCase("create") && args.length >= 2){
-					
-					Location loc = player.getLocation();
-					
-					String l = loc.getWorld().getName() + ":" + loc.getBlockX() + ":" + loc.getBlockY() + ":" + loc.getBlockZ();
-					
-					
-					plugin.mainConf.set("vortex_locs." + args[1] + ".loc", l);
-					ConfigUtil.saveConfig(plugin.mainConf, "config");
-					plugin.pListener.updateVortexs();
+		
+					plugin.VortexManager.setVortex(args[1], new Vortex(((Player)sender).getLocation(),"normal",""));
 					player.sendMessage(ChatColor.DARK_GRAY + "AirPortal created");
+					
 					return true;
 				} else if(args[0].equalsIgnoreCase("remove") && args.length >= 2){
-					if(plugin.mainConf.contains("vortex_locs." + args[1]) && plugin.mainConf.get("vortex_locs." + args[1]) != null){
-						plugin.mainConf.set("vortex_locs." + args[1], null);
-						
-						ConfigUtil.saveConfig(plugin.mainConf, "config");
-						player.sendMessage(ChatColor.DARK_GRAY + "AirPortal removed");
-						plugin.pListener.updateVortexs();
+					
+					plugin.VortexManager.removeVortex(args[1]);
 						return true;
-					}
+					
 				} else if(args[0].equalsIgnoreCase("link") && args.length >= 3){
-					if(plugin.mainConf.contains("vortex_locs." + args[1]) 
-							&& plugin.mainConf.get("vortex_locs." + args[1]) != null
-							&& plugin.mainConf.contains("vortex_locs." + args[2]) 
-							&& plugin.mainConf.get("vortex_locs." + args[2]) != null){
-						plugin.mainConf.set("vortex_locs." + args[1] + ".teleport", args[2]);
-						ConfigUtil.saveConfig(plugin.mainConf, "config");
-						player.sendMessage(ChatColor.DARK_GRAY + "AirPortal links set");
-						plugin.pListener.updateVortexs();
+				plugin.VortexManager.getVortex(args[1]).destination=args[2];
 						return true;
 					}
 				} else if(args[0].equalsIgnoreCase("height") && args.length >= 3){
-					if(plugin.mainConf.contains("vortex_locs." + args[1]) 
-							&& plugin.mainConf.get("vortex_locs." + args[1]) != null){
-						if(args[2].equalsIgnoreCase("low") || args[2].equalsIgnoreCase("normal") || args[2].equalsIgnoreCase("space")){
-							plugin.mainConf.set("vortex_locs." + args[1] + ".height", args[2]);
-							ConfigUtil.saveConfig(plugin.mainConf, "config");
-							player.sendMessage(ChatColor.DARK_GRAY + "AirPortal height set");
-							plugin.pListener.updateVortexs();
-							return true;
-						}
-					}
+					plugin.VortexManager.getVortex(args[1]).height=args[2];
+					return true;
+				}else{
+					
 				}
-			}
+	
 		}
 		return false;
 	}

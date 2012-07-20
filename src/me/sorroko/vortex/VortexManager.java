@@ -1,19 +1,25 @@
 package me.sorroko.vortex;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class VortexManager {
 	AirPortal plugin;
 	public VortexManager(AirPortal instance){
 		plugin=instance;
 	}
-private HashMap<String,vortex> vortexii=new HashMap<String,vortex>();
+private HashMap<String,Vortex> vortexii=new HashMap<String,Vortex>();
 
-public vortex getVortex(String name){
+public Vortex getVortex(String name){
 	return vortexii.get(name);
 }
 
-public void setVortex(String name,vortex v){
+public Set<Entry<String,Vortex>> getVortexEntries(){
+	return vortexii.entrySet();
+}
+
+public void setVortex(String name,Vortex v){
 	vortexii.put(name, v);
 }
 
@@ -21,10 +27,14 @@ public boolean vortexExists(String name){
 	return vortexii.containsKey(name);
 }
 
+public void removeVortex(String name){
+	vortexii.remove(name);
+}
+
 public void loadVortexii(){
 	if(!plugin.mainConf.isSet("vortex_locs")) plugin.mainConf.createSection("vortex_locs");
 	for(String k:plugin.mainConf.getKeys(false)){
-		vortexii.put(k, new vortex(plugin.mainConf.getConfigurationSection("vortex_locs").getConfigurationSection(k)));
+		vortexii.put(k, new Vortex(plugin.mainConf.getConfigurationSection("vortex_locs").getConfigurationSection(k)));
 	}
 }
 
